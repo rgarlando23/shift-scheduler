@@ -59,6 +59,3 @@ border() {
     gotoxy 8 25
     echo '                                                                            '
 }
-
-#Call the border design for input
-border
