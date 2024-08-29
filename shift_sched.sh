@@ -1,8 +1,8 @@
 #!/bin/bash
-source assets/*.sh
+source assets/input.sh
 
 main(){
-    border
+    input
 }
 
 
