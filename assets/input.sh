@@ -1,13 +1,11 @@
 #!/bin/bash
 
 source assets/border.sh
+source assets/file_handler.sh
+source assets/checker.sh
 
 input() {
-    local UserName
-    local UserShift
-    local UserTeam
-    local UserSched
-
+    local UserName UserShift UserTeam UserSched
     while true; do
         clear
         border
@@ -16,7 +14,8 @@ input() {
         read -r UserName
         # Case insensitive check for "print"
         if [ "$(echo "$UserName" | tr '[:upper:]' '[:lower:]')" = "print" ]; then
-            clear
+            gotoxy 1 33
+            output_schedule
             exit 0
         else
             gotoxy 37 18
@@ -25,13 +24,12 @@ input() {
             # Convert to lowercase
             UserShift="$(echo "$UserShift" | tr '[:upper:]' '[:lower:]')"
             # Validate shift
-            while [[ "$UserShift" != "morning" && "$UserShift" != "mid" && "$UserShift" != "night" ]]
-            do
+            while [[ "$UserShift" != "morning" && "$UserShift" != "mid" && "$UserShift" != "night" ]]; do
                 gotoxy 37 18
                 echo "Shift not found. Please enter again."
                 sleep 3
                 gotoxy 37 18
-                echo "                                       "  # Clear the line
+                echo "                                       "
                 gotoxy 37 18
                 read -r UserShift
                 UserShift="$(echo "$UserShift" | tr '[:upper:]' '[:lower:]')"
@@ -48,7 +46,6 @@ input() {
                     UserSched="10pm - 7am"
                     ;;
             esac
-
             gotoxy 36 19
             # Prompt user for team
             read -r UserTeam
@@ -61,14 +58,20 @@ input() {
                 echo "Team not found. Please enter again."
                 sleep 3
                 gotoxy 36 19
-                echo "                                        "  # Clear the line
+                echo "                                        "
                 gotoxy 36 19
                 read -r UserTeam
                 UserTeam="$(echo "$UserTeam" | tr '[:lower:]' '[:upper:]')"
             done
-                
-            echo "$UserTeam, $UserName, $UserShift, $UserSched" >> data/schedule.csv
+            #shift validator
+            check_max_shifts $UserTeam $UserShift
+            if [[ $? -eq 0 ]]; then
+                echo "$UserTeam, $UserName, $UserShift, $UserSched" >> data/schedule.csv
+            else
+                gotoxy 1 33
+                echo "Maximum of 2 $UserShift shifts allowed for team $UserTeam."
+                exit 1
+            fi
         fi
     done
 }
-input
