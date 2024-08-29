@@ -3,7 +3,7 @@
 data_file="data/schedule.csv"
 
 # Function to check the maximum number of shifts per team
-check_max_shifts() {
+shift_checker() {
     local team=$1
     local shift=$2
     local shift_count=0
@@ -29,16 +29,14 @@ check_max_shifts() {
 }
 
 # Function to check if the total number of shifts for each team is exactly 6
-check_availability() {
-    local team total_shifts
-
+slot_checker() {
+    local total_shifts
+    local all_teams_satisfied=1
     for team in A1 A2 B1 B2 B3; do
-        total_shifts=$(awk -F, -v team="$team" '$1 == team { count++ } END { print count }' "$data_file")
-
+        total_shifts=$(awk -F, -v team="$team" '$1 == team' "$data_file" | wc -l)
         if [[ "$total_shifts" -ne 6 ]]; then
-            echo "Team $team does not have exactly 6 shifts assigned. Current count: $total_shifts"
-        else
-            echo "Team $team has exactly 6 shifts assigned."
+            all_teams_satisfied=0
         fi
     done
+    return $all_teams_satisfied
 }
