@@ -69,7 +69,7 @@ input() {
                 echo "$UserTeam, $UserName, $UserShift, $UserSched" >> data/schedule.csv
             else
                 gotoxy 1 33
-                echo "Maximum of 2 $UserShift shifts allowed for team $UserTeam."
+                echo "$UserShift shift for team $UserTeam already full."
                 exit 1
             fi
         fi
