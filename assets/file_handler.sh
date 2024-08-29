@@ -1,11 +1,7 @@
 #!/bin/bash
 
-# Define the input file
-DIR="$(dirname "$(realpath "$0")")"
-data_file="$DIR/../data/schedule.csv"
+data_file="data/schedule.csv"
 
-
-# Function to count instances for all shifts
 count_shifts_per_team() {
     local team=$1
     local morning_count mid_count night_count
@@ -16,7 +12,6 @@ count_shifts_per_team() {
     echo "$team: $morning_count, $mid_count, $night_count"
 }
 
-# Function to output the members of each team for all shifts
 output_shift_schedule() {
     local team=$1
     local shift shift_time
@@ -31,4 +26,18 @@ output_shift_schedule() {
         awk -F, -v team="$team" -v shift="$shift" -v time="$shift_time" '$1 == team && $3 == " "shift { print $2 ", " shift ", " time }' $data_file
     done
     echo ""
+}
+
+check_all_teams() {
+    echo "format: morning, mid, night"
+    for team in A1 A2 B1 B2 B3; do
+        count_shifts_per_team "$team"
+    done
+}
+
+output_schedule() {
+    echo "Shift Schedule"
+    for team in A1 A2 B1 B2 B3; do
+        output_shift_schedule "$team"
+    done
 }
