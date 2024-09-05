@@ -1,5 +1,5 @@
 #!/bin/bash
-
+source assets/error_test.sh
 source assets/border.sh
 source assets/file_handler.sh
 source assets/checker.sh
@@ -28,17 +28,18 @@ input() {
                 gotoxy 37 18
                 read -r UserShift
                 UserShift="$(echo "$UserShift" | tr '[:upper:]' '[:lower:]')"
-
-                while ! [[ "$UserShift" =~ ^(morning|mid|night)$ ]]; do
-                    gotoxy 37 18
-                    echo "Shift not found. Please enter again."
-                    sleep 3
-                    gotoxy 37 18
-                    echo "                                       "
-                    gotoxy 37 18
-                    read -r UserShift
-                    UserShift="$(echo "$UserShift" | tr '[:upper:]' '[:lower:]')"
-                done
+                
+                errorShift $UserShift
+                #while ! [[ "$UserShift" =~ ^(morning|mid|night)$ ]]; do 
+                #    gotoxy 37 18
+                #    echo "Shift not found. Please enter again."
+                #    sleep 3
+                #    gotoxy 37 18
+                #    echo "                                       "
+                #    gotoxy 37 18
+                #    read -r UserShift
+                #    UserShift="$(echo "$UserShift" | tr '[:upper:]' '[:lower:]')"
+               # done
 
                 # Schedule based on shift
                 case "$UserShift" in
@@ -58,18 +59,18 @@ input() {
                 read -r UserTeam
                 # Convert to uppercase
                 UserTeam="$(echo "$UserTeam" | tr '[:lower:]' '[:upper:]')"
-
+                errorTeam $UserTeam
                 # Validate team input
-                while ! [[ "$UserTeam" =~ ^(A1|A2|B1|B2|B3)$ ]]; do
-                    gotoxy 36 19
-                    echo "Team not found. Please enter again."
-                    sleep 3
-                    gotoxy 36 19
-                    echo "                                        "
-                    gotoxy 36 19
-                    read -r UserTeam
-                    UserTeam="$(echo "$UserTeam" | tr '[:lower:]' '[:upper:]')"
-                done
+                #while ! [[ "$UserTeam" =~ ^(A1|A2|B1|B2|B3)$ ]]; do
+                #    gotoxy 36 19
+                #    echo "Team not found. Please enter again."
+                #    sleep 3
+                #    gotoxy 36 19
+                #    echo "                                        "
+                #    gotoxy 36 19
+                #    read -r UserTeam
+                #   UserTeam="$(echo "$UserTeam" | tr '[:lower:]' '[:upper:]')"
+                #done
                 # Check if shift is available for the team
                 shift_checker "$UserTeam" "$UserShift"
                 if [[ $? -eq 0 ]]; then
