@@ -7,35 +7,30 @@ test3=("ken" "night" "A1")
 test4=("ad" "morning" "A1")
 test5=("gab" "d@y" "B4")
 
-randomizeName() {
 
-   for i in {1..5}
-   do
-        lc=0
-        while read -r line; 
-        do
-            ((lc++))
-        done < $FILE
 
-      # get a random number between 1 and $lc
-        rnd=$RANDOM
-        let "rnd %= $lc"
-        ((rnd++))
+# Path to the file with names
+names_file="names.txt"
 
-       # traverse file and find line number $rnd
-        i=0
-        while read -r line; 
-        do
-          ((i++))
-          [ $i -eq $rnd ] && break
-        done < $FILE
+# Declare an empty array
+names_array=()
 
-        printf '%s\n' "$line"
-    done
+# Read the file line by line and store each line into the array
+while IFS= read -r line; do
+    names_array+=("$line")
+done < "$names_file"
+
+# Function to generate a random index
+generate_random_index() {
+    echo $((RANDOM % ${#names_array[@]}))
 }
 
-randomizeName
-
+# Generate and print random names from the array
+echo "Generated random names:"
+for i in {1..5}; do
+    random_index=$(generate_random_index)
+    echo "${names_array[$random_index]}"
+done
 
 
 
