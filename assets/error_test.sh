@@ -56,8 +56,8 @@ continueFunc(){
     echo -e 'Do you Want to Continue? ' ${NC} 
     gotoxy 53 26
     read -r choice
-    gotoxy 58 26
-    echo "                             "
+    gotoxy 28 26
+    echo "                                        "
     if [ "$(echo "$choice" | tr '[:upper:]' '[:lower:]')" = "no" ]; then
             exit 0
     fi
