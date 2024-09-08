@@ -12,7 +12,7 @@ continueFunc() {
     gotoxy 28 26
     echo "                                        " # Clear the input prompt line
     if [[ "$(echo "$choice" | tr '[:upper:]' '[:lower:]')" != "yes" && "$(echo "$choice" | tr '[:upper:]' '[:lower:]')" != "y" ]]; then
-        clear
+        gotoxy 1 35
         exit 1
     fi
 
