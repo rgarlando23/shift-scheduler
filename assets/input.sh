@@ -3,6 +3,7 @@ source assets/error_test.sh
 source assets/border.sh
 source assets/file_handler.sh
 source assets/checker.sh
+source assets/color.sh
 
 input() {
     local UserName UserShift UserTeam UserSched
@@ -55,8 +56,9 @@ input() {
                     # Append valid entry to CSV file
                     echo "$UserTeam, $UserName, $UserShift, $UserSched" >> data/schedule.csv
                 else
-                    gotoxy 1 33
-                    echo "$UserShift shift for team $UserTeam already full."
+                    gotoxy 28 26
+                    echo -e "${BRed}$UserShift shift for team $UserTeam already full.${NC}"
+                    gotoxy 1 35
                     exit 1
                 fi
             fi
