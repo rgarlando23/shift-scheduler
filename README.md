@@ -101,7 +101,7 @@ Here’s a step-by-step guide to using the `shift_sched.sh` script:
 Contributors to this project:
 
 - **Ralph Khen Adrian Cuevas**  
-  GitHub: [@AAdrianC](https://github.com/AAdrianC)
+  GitHub: [@AdCuevas12](https://github.com/AdCuevas12)
 - **Ken Jolo Takano**  
   GitHub: [@kencaleston69](https://github.com/kencaleston69)
 - **Kim Gabriel Santiago**  
