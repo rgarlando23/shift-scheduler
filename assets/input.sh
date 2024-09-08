@@ -50,6 +50,7 @@ input() {
                 # Convert to uppercase
                 UserTeam="$(echo "$UserTeam" | tr '[:lower:]' '[:upper:]')"
                 errorTeam $UserTeam
+                UserTeam="$(echo "$UserTeam" | tr '[:lower:]' '[:upper:]')"
                 # Check if shift is available for the team
                 shift_checker "$UserTeam" "$UserShift"
                 if [[ $? -eq 0 ]]; then
