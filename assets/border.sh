@@ -70,7 +70,7 @@ border() {
     gotoxy 8 29
     echo -e '│    type' ${GREEN} "print" ${NC} "on name       " ${BRed} " ◯  ◯  ◯ "  ${NC}  "          to exit program     │"
     gotoxy 8 30
-    echo -e '│     to print schedule                                press "'${BRed}'ctrl + c'${NC}'"    │'
+    echo -e '│     to print schedule                               type '${BRed}'exit'${NC}' on name    │'
     gotoxy 8 31
     echo '╰──────────────────────────────────────────────────────────────────────────╯'
     gotoxy 8 32
