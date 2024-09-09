@@ -8,22 +8,27 @@ source assets/color.sh
 input() {
     local UserName UserShift UserTeam UserSched
     while true; do
-        clear
-        border
         # Check availability of slots
         slot_checker
         availability_status=$?
         if [[ $availability_status -eq 1 ]]; then
+            clear
+            border
             gotoxy 1 33
             output_schedule
             exit 0
         else
             # Prompt user input
+            clear
+            border
             gotoxy 36 17
             read -r UserName
             if [ "$(echo "$UserName" | tr '[:upper:]' '[:lower:]')" = "print" ]; then
                 gotoxy 1 33
                 output_schedule
+                exit 0
+            elif [ "$(echo "$UserName" | tr '[:upper:]' '[:lower:]')" = "exit" ]; then
+                gotoxy 1 35
                 exit 0
             else
                 gotoxy 37 18
