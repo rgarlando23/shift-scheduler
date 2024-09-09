@@ -27,6 +27,9 @@ input() {
                 gotoxy 1 33
                 output_schedule
                 exit 0
+            elif [ "$(echo "$UserName" | tr '[:upper:]' '[:lower:]')" = "exit" ]; then
+                gotoxy 1 35
+                exit 0
             else
                 gotoxy 37 18
                 read -r UserShift
