@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY . /app
 
-RUN chmod +x /app/shift_sched.s
+RUN chmod +x /app/shift_sched.sh
 RUN chmod +x /app/assets/*
 
 CMD ["ttyd","--writable", "-p", "8080", "bash", "./shift_sched.sh"]
