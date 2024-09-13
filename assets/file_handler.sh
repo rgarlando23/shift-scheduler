@@ -37,8 +37,6 @@ check_all_teams() {
 }
 
 output_schedule() {
-    gotoxy 31 26
-    echo -e "${BRed}All shifts per team are full ${NC}"
     gotoxy 1 35
     echo "Shift Schedule"
     for team in A1 A2 B1 B2 B3; do

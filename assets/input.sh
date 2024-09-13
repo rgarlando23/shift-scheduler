@@ -14,6 +14,8 @@ input() {
         if [[ $availability_status -eq 1 ]]; then
             clear
             border
+            gotoxy 31 26
+            echo -e "${BRed}All shifts per team are full ${NC}"
             gotoxy 1 33
             output_schedule
             exit 0
