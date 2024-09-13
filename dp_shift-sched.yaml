@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shift-scheduler
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: shift-scheduler
+  template:
+    metadata:
+      labels:
+        app: shift-scheduler
+    spec:
+      containers:
+      - name: shift-scheduler-container
+        image: adriancuevas/shift-scheduler
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: schedule_list
+          mountPath: /opt/sh
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service_shift-scheduler
+spec:
+  type: NodePort
+  selector:
+    app: shift-scheduler
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30008
