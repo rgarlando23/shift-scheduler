@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: shift-scheduler-container
-        image: adriancuevas/shift-scheduler
+        image: shift-scheduler:latest
         resources:
           limits:
             memory: "128Mi"
@@ -22,8 +22,14 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - name: schedule_list
-          mountPath: /opt/sh
+        - name: schedule-list
+          mountPath: /app/data/schedule.csv
+      volumes:
+      - name: schedule-list
+        persistentVolumeClaim:
+          claimName: pvc-shift-scheduler
+
+
 
 
 ---
@@ -31,7 +37,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: service_shift-scheduler
+  name: service-shift-scheduler
 spec:
   type: NodePort
   selector:
@@ -40,3 +46,37 @@ spec:
   - port: 80
     targetPort: 80
     nodePort: 30008
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-shift-scheduler
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  storageClassName: stor-shiftsched
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /root/schedule.csv
+    type: DirectoryOrCreate
+
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-shift-scheduler
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+
+
