@@ -5,6 +5,4 @@ main(){
     input
 }
 
-
-#runtime
 main

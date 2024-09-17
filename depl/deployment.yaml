@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shift-sched-deployment
+  namespace: production
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: shift-sched
+  template:
+    metadata:
+      labels:
+        app: shift-sched
+    spec:
+      containers:
+        - name: shift-sched
+          image: <image>
+          imagePullPolicy: Always
+          resources: {}
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: schedule-data
+              mountPath: /app/data
+      volumes:
+        - name: schedule-data
+          persistentVolumeClaim:
+            claimName: schedule-pvc
