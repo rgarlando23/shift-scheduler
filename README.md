@@ -52,7 +52,7 @@ There are three methods to run the script:
 
    - **Run the Docker Image**:
      ```bash
-     docker run -it --rm -v $(pwd)/data:/app/data adriancuevas/shift-scheduler
+     docker run -d -p 8080:8080 adriancuevas/shift-scheduler:latest
      ```
 
    This command will run the application using the pre-built Docker image `adriancuevas/shift-scheduler`. It mounts the `data` directory from your current working directory to `/app/data` in the container.
@@ -68,7 +68,7 @@ There are three methods to run the script:
 
    - **Run the Docker Container**:
      ```bash
-     docker run -it --rm -v $(pwd)/data:/app/data shift-scheduler
+     docker run -d -p 8080:8080 adriancuevas/shift-scheduler:latest
      ```
 
    This will use the Docker image to run the application. It mounts the `data` directory from your current working directory to `/app/data` in the container.
