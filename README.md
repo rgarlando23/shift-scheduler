@@ -174,6 +174,10 @@ Here’s a step-by-step guide to using the `shift_sched.sh` script:
      ```bash
      kubectl get pods -n production
      ```
+**10. Access the Shift Scheduler App**:
+   - At the top right of the playground, click the ellipsis menu `...` and select `View Port`.
+   - Change the port to `30000` and click `Open Port` to access the app in the browser.
+
 
 ## ⌨️ **Authors**
 
